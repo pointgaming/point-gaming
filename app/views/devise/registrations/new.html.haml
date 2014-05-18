@@ -1,17 +1,20 @@
-%h2 Sign up
-= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-  = devise_error_messages!
-  %div
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true
-  %div
-    = f.label :password
-    %br/
-    = f.password_field :password, autocomplete: "off"
-  %div
-    = f.label :password_confirmation
-    %br/
-    = f.password_field :password_confirmation, autocomplete: "off"
-  %div= f.submit "Sign up"
-= render "devise/shared/links"
+%body.theme-default.page-signup-alt
+  .signup-header
+    %a.logo{:href => root_path}
+    .demo-logo.bg-primary
+      %img{:alt => "", :src => "/assets/logo.png", :style => "margin-top: -4px;"}
+    %a.btn.btn-primary{:href => new_user_registration_path} Sign Up
+  %h1.form-header Create Your Account
+  = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { id: "signup-form_id", class: "panel" }) do |f|
+    = devise_error_messages!
+
+    .form-group
+      = f.text_field :username, placeholder: "Username", class: "form-control input-lg", autofocus: true
+    .form-group
+      = f.text_field :email, placeholder: "Email", class: "form-control input-lg"
+    .form-group
+      = f.password_field :password, placeholder: "Password", class: "form-control input-lg"
+    .form-group
+      = f.password_field :password_confirmation, placeholder: "Password", class: "form-control input-lg"
+    .form-actions
+      %input.btn.btn-primary.btn-block.btn-lg{:type => "submit", :value => "Sign In"}
