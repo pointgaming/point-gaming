@@ -12,5 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap.min
 //= require turbolinks
-//= require_tree .
+//= require pixel-admin.min
+
+$(function () {
+    "use strict";
+
+    $("a[rel~=popover], .has-popover").popover();
+    $("a[rel~=tooltip], .has-tooltip").tooltip();
+});

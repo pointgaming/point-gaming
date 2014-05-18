@@ -15,4 +15,5 @@
  *= require pages.min
  *= require rtl.min
  *= require themes.min
+ *= require widgets.min
  */

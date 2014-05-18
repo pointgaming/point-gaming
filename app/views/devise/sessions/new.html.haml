@@ -1,23 +1,23 @@
-%body.theme-default.page-signin-alt
-  .signin-header
-    %a.logo{:href => root_path}
-    .demo-logo.bg-primary
-      %img{:alt => "", :src => "/assets/logo.png", :style => "margin-top: -4px;"}
-    %a.btn.btn-primary{:href => new_user_registration_path} Sign Up
-  %h1.form-header Sign in to your Account
-  = form_for(resource, as: resource_name, url: session_path(resource_name), html: { id: "signin-form_id", class: "panel" }) do |f|
-    - if flash.alert
-      %p.alert
-        = flash.alert
+- content_for(:body_class, "page-signin-alt")
+.signin-header
+  %a.logo{:href => root_path}
+  .demo-logo.bg-primary
+    %img{:alt => "", :src => "/assets/logo.png", :style => "margin-top: -4px;"}
+  %a.btn.btn-primary{:href => new_user_registration_path} Sign Up
+%h1.form-header Sign in to your Account
+= form_for(resource, as: resource_name, url: session_path(resource_name), html: { id: "signin-form_id", class: "panel" }) do |f|
+  - if flash.alert
+    %p.alert
+      = flash.alert
 
-    .form-group
-      = f.text_field :login, placeholder: "Username or Email", class: "form-control input-lg", autofocus: true
-    .form-group.signin-password
-      = f.password_field :password, placeholder: "Password", class: "form-control input-lg"
-      %a.forgot{:href => "#"} Forgot?
-    - if devise_mapping.rememberable?
-      %p
-        = f.check_box :remember_me
-        = f.label :remember_me
-    .form-actions
-      %input.btn.btn-primary.btn-block.btn-lg{:type => "submit", :value => "Sign In"}/
+  .form-group
+    = f.text_field :login, placeholder: "Username or Email", class: "form-control input-lg", autofocus: true
+  .form-group.signin-password
+    = f.password_field :password, placeholder: "Password", class: "form-control input-lg"
+    %a.forgot{:href => "#"} Forgot?
+  - if devise_mapping.rememberable?
+    %p
+      = f.check_box :remember_me
+      = f.label :remember_me
+  .form-actions
+    %input.btn.btn-primary.btn-block.btn-lg{:type => "submit", :value => "Sign In"}/
