@@ -1,9 +1,9 @@
 - content_for(:body_class, "page-signup-alt")
 .signup-header
   %a.logo{:href => root_path}
-  .demo-logo.bg-primary
+  .demo-logo{style: "background: none;"}
     %img{:alt => "", :src => "/assets/logo.png", :style => "margin-top: -4px;"}
-  %a.btn.btn-primary{:href => new_user_registration_path} Sign Up
+  %a.btn.btn-primary{:href => new_user_session_path} Sign In
 %h1.form-header Create Your Account
 = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { id: "signup-form_id", class: "panel" }) do |f|
   = devise_error_messages!
