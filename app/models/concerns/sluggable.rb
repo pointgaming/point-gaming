@@ -20,4 +20,8 @@ module Sluggable
       self.slug = send(@@slug_field).downcase.gsub(/\s+/, "-")
     end
   end
+
+  def to_param
+    slug
+  end
 end

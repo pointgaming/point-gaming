@@ -14,4 +14,52 @@
     = stylesheet_link_tag :application
 
   %body{class: "theme-default no-main-menu #{yield(:body_class)}"}
-    = content_for?(:content) ? yield(:content) : yield
+    - if devise_controller?
+      = yield
+    - else
+      #main-wrapper
+        #main-navbar.navbar.navbar-inverse{:role => "navigation"}
+          .navbar-inner
+            .navbar-header
+              %a.navbar-brand{href: root_path}
+              %div
+                %img{alt: "Point Gaming", src: "/assets/logo-small.png"}
+              %button.navbar-toggle.collapsed{"data-target" => "#main-navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+                %i.navbar-icon.fa.fa-bars
+            #main-navbar-collapse.collapse.navbar-collapse.main-navbar-collapse
+              %div
+                %ul.nav.navbar-nav
+                  %li
+                    %a{href: dashboard_path} Dashboard
+                  %li
+                    %a{href: streams_path} Streams
+                .right.clearfix
+                  %ul.nav.navbar-nav.pull-right.right-navbar-nav
+                    %li
+                      %form.navbar-form.pull-left
+                        %input.form-control{:placeholder => "Search", :type => "text"}/
+                    %li.dropdown
+                      %a.dropdown-toggle.user-menu{"data-toggle" => "dropdown", :href => "#"}
+                        = image_tag current_user.avatar
+                        %span
+                          = current_user
+                      %ul.dropdown-menu
+                        %li
+                          %a{:href => "#"}
+                            %i.dropdown-icon.fa.fa-user
+                            \&nbsp;&nbsp;Profile
+                        %li
+                          %a{:href => "#"}
+                            %i.dropdown-icon.fa.fa-book
+                            \&nbsp;&nbsp;Account
+                        %li
+                          %a{:href => "#"}
+                            %i.dropdown-icon.fa.fa-cog
+                            \&nbsp;&nbsp;Settings
+                        %li.divider
+                        %li
+                          %a{href: destroy_user_session_path}
+                            %i.dropdown-icon.fa.fa-power-off
+                            \&nbsp;&nbsp;Log Out
+        #content-wrapper
+          = content_for?(:content) ? yield(:content) : yield

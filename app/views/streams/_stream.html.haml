@@ -1,0 +1,26 @@
+.col-md-4
+  .panel.panel-info.panel-dark.widget-profile
+    .panel-heading
+      .widget-profile-bg-icon
+        %i.fa.fa-video-camera
+      = image_tag stream.avatar, alt: stream.name, class: "widget-profile-avatar"
+      .widget-profile-header
+        %span= stream.name
+        %br/
+        = link_to "https://pointgaming.com/s/#{stream.slug}", stream_path(stream)
+    .widget-profile-counters
+      .col-xs-4
+        %span 131
+        = succeed "VIEWERS" do
+          %br
+      .col-xs-4
+        %span 230
+        = succeed "FOLLOWERS" do
+          %br
+      .col-xs-4
+        %span 56
+        = succeed "BETS" do
+          %br
+    %input.form-control.input-lg.widget-profile-input{placeholder: "Write your tweet", type: "text"}
+    .widget-profile-text
+      Lorem ipsum dolor sit amet

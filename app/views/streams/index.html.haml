@@ -1,0 +1,9 @@
+.page-header
+  %h1
+    %i.fa.fa-th-large.page-header-icon
+    \&nbsp;&nbsp;Streams
+
+.row
+  - @streams.each do |stream|
+    - 9.times do
+      = render stream

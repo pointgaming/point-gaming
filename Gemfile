@@ -7,6 +7,8 @@ gem "bson_ext"
 gem "devise"
 gem "haml-rails"
 gem "rspec-rails"
+gem "mongoid-paperclip", require: "mongoid_paperclip"
+gem "aws-sdk"
 
 # Kind of care.
 gem "less-rails"
