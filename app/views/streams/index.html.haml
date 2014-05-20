@@ -3,7 +3,37 @@
     %i.fa.fa-th-large.page-header-icon
     \&nbsp;&nbsp;Streams
 
+  .pull-right
+    %button.btn.btn-flat.btn-labeled.btn-primary{data: { toggle: "modal", target: "#new-stream-modal" }}
+      %span.btn-label.icon.fa.fa-plus
+      New Stream
+
 .row
   - @streams.each do |stream|
     - 9.times do
       = render stream
+
+#new-stream-modal.modal.fade{role: "dialog", tabindex: "-1"}
+  = form_for Stream.new, html: { id: "new-stream-form", class: "form-horizontal" } do |f|
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+          %h4#new-stream-modal-label.modal-title New Stream
+        .modal-body
+          .form-group
+            = f.label :name, class: "col-sm-2 control-label"
+            .col-sm-10
+              = f.text_field :name, placeholder: "Name", class: "form-control"
+          .form-group
+            = f.label :avatar, class: "col-sm-2 control-label"
+            .col-sm-10
+              = f.file_field :avatar, class: "form-control"
+              %p.help-block Your avatar will be scaled to 160x160.
+          .form-group
+            = f.label :description, class: "col-sm-2 control-label"
+            .col-sm-10
+              %textarea#bs-markdown-example.form-control{:name => "content", :rows => "10"}
+      .modal-footer
+        %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Cancel
+        %button.btn.btn-primary{type: "submit"} Create Stream

@@ -22,7 +22,6 @@
           .navbar-inner
             .navbar-header
               %a.navbar-brand{href: root_path}
-              %div
                 %img{alt: "Point Gaming", src: "/assets/logo-small.png"}
               %button.navbar-toggle.collapsed{"data-target" => "#main-navbar-collapse", "data-toggle" => "collapse", :type => "button"}
                 %i.navbar-icon.fa.fa-bars
@@ -62,4 +61,8 @@
                             %i.dropdown-icon.fa.fa-power-off
                             \&nbsp;&nbsp;Log Out
         #content-wrapper
+          .row
+            - flash.each do |type, msg|
+              .col-sm-12
+                = content_tag :div, msg, class: "alert alert-#{type == "notice" ? "success" : "danger"}"
           = content_for?(:content) ? yield(:content) : yield
