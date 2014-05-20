@@ -11,6 +11,7 @@ gem "rspec-rails"
 gem "mongoid-paperclip", require: "mongoid_paperclip"
 gem "aws-sdk"
 gem "redcarpet"
+gem "websocket-rails"
 
 # Kind of care.
 gem "less-rails"

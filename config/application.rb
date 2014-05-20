@@ -29,5 +29,7 @@ module PointGaming
 
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
     config.assets.precompile += %w( .svg .eot .woff .ttf)
+    config.generators.stylesheets = false
+    config.generators.javascripts = false
   end
 end

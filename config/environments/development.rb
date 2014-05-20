@@ -41,4 +41,6 @@ Rails.application.configure do
     g.view_specs      false
     g.helper_specs    false
   end
+
+  config.middleware.delete Rack::Lock
 end

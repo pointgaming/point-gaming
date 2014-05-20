@@ -17,3 +17,6 @@
 //= require pixel-admin.min
 //= require effects
 //= require streams
+//= require websocket_rails/main
+//= require chat
+

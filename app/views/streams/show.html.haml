@@ -12,4 +12,22 @@
 
 .col-md-6
   .row
-    Chat
+    #chat.panel.widget-chat{data: { stream_id: @stream.slug }}
+      .panel-heading
+        %span.panel-title
+          %i.panel-title-icon.fa.fa-comments-o
+          Chat
+      .panel-body
+        .message
+          %img.message-avatar{:alt => "", :src => "/assets/pixel-admin/avatar.png"}
+          .message-body
+            .message-heading
+              %a{:href => "#", :title => ""} Denise Steiner
+              says:
+              %span.pull-right 2 minutes ago
+            .message-text
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.
+      %form.panel-footer.chat-controls
+        .chat-controls-input
+          %textarea#chat-input.form-control{rows: 1, style: "overflow: hidden; word-wrap: break-word; resize: horizontal; height: 32px;"}
+        %button#send-chat-input.btn.btn-primary.chat-controls-btn Send

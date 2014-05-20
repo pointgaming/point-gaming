@@ -1,10 +1,12 @@
 module StreamsHelper
   def markdown(description)
-   @html_renderer  ||= Redcarpet::Render::HTML.new(filter_html: true,
+    return "" unless description.present?
+
+    @html_renderer  ||= Redcarpet::Render::HTML.new(filter_html: true,
                                                    hard_wrap: true,
                                                    link_attributes: { target: "_blank" })
 
-   @renderer       ||= Redcarpet::Markdown.new(@html_renderer,
+    @renderer       ||= Redcarpet::Markdown.new(@html_renderer,
                                                no_intra_emphasis: true,
                                                autolink: true,
                                                tables: true,
@@ -14,6 +16,6 @@ module StreamsHelper
                                                prettify: true,
                                                highlight: true)
 
-   @renderer.render(description).html_safe
+    @renderer.render(description).html_safe
   end
 end
