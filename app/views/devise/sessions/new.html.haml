@@ -2,7 +2,7 @@
 .signin-header
   %a.logo{:href => root_path}
   .demo-logo{style: "background: none;"}
-    %img{:alt => "", :src => "/assets/logo.png", :style => "margin-top: -4px;"}
+    %img{:alt => "", :src => asset_path("logo.png"), :style => "margin-top: -4px;"}
   %a.btn.btn-primary{:href => new_user_registration_path} Sign Up
 %h1.form-header Sign in to your Account
 = form_for(resource, as: resource_name, url: session_path(resource_name), html: { id: "signin-form_id", class: "panel" }) do |f|

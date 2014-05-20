@@ -4,7 +4,7 @@ class Stream
   include Sluggable
   include Avatarable
 
-  slug_field :name
+  slug_by :name
 
   belongs_to :user
 
