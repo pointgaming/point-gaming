@@ -5,6 +5,10 @@ class StreamsController < ApplicationController
     @streams = Stream.all
   end
 
+  def show
+    @stream = Stream.find_by(slug: params[:id])
+  end
+
   def create
     @stream = Stream.new(new_stream_parameters)
 
@@ -17,16 +21,17 @@ class StreamsController < ApplicationController
 
   def validate_name
     @stream = Stream.new(new_stream_parameters)
+    @stream.valid?
 
-    if @stream.valid?
-      render json: true
+    if Stream.any_of({ name: @stream.name }, { slug: @stream.slug }).exists?
+      render json: "Name is already taken.".to_json
     else
-      render json: "Name is already taken."
+      render json: true
     end
   end
 
   private
   def new_stream_parameters
-    params.require(:stream).permit(:name, :avatar)
+    params.require(:stream).permit(:name, :avatar, :channel_source, :channel_name, :description)
   end
 end

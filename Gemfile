@@ -9,6 +9,7 @@ gem "haml-rails"
 gem "rspec-rails"
 gem "mongoid-paperclip", require: "mongoid_paperclip"
 gem "aws-sdk"
+gem "redcarpet"
 
 # Kind of care.
 gem "less-rails"
