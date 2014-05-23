@@ -6,5 +6,6 @@ Rails.application.routes.draw do
   end
 
   get "dashboard" => "dashboard#index"
+  get "chat" => "chat#chat", as: "chat"
   root "dashboard#index"
 end
