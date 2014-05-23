@@ -29,9 +29,9 @@
               %div
                 %ul.nav.navbar-nav
                   %li
-                    %a{href: dashboard_path} Dashboard
-                  %li
                     %a{href: streams_path} Streams
+                  %li
+                    %a{href: "#"} Store
                 .right.clearfix
                   %ul.nav.navbar-nav.pull-right.right-navbar-nav
                     %li
@@ -42,6 +42,8 @@
                         = image_tag current_user.avatar
                         %span
                           = current_user
+                        %span.badge.badge-primary
+                          = current_user.points
                       %ul.dropdown-menu
                         %li
                           %a{:href => "#"}

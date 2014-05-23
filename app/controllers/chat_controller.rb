@@ -4,6 +4,6 @@ class ChatController < WebsocketRails::BaseController
 
   def new
     message[:username] = current_user.username
-    WebsocketRails["stream.#{message[:stream_id]}"].trigger("chat.new", message)
+    WebsocketRails["stream.#{message[:stream_id]}"].trigger("new", message, namespace: "chat")
   end
 end
