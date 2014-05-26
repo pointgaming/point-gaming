@@ -1,0 +1,7 @@
+.tab-pane#collaborators-tab
+  .form-group.has-feedback
+    %label.control-label
+      Add Collaborator
+    = text_field_tag "new-collaborator", nil, class: "form-control"
+
+  = render partial: "/collaborators/index"

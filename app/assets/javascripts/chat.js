@@ -31,7 +31,8 @@ $(function () {
 
         socket = new WebSocket(url + channelId);
         socket.onmessage = function (e) {
-            var data = JSON.parse(e.data);
+            var data = JSON.parse(e.data),
+                panel = $("#chat .panel-body");
 
             template = "" +
                 "<div class='message'>" +
@@ -50,7 +51,8 @@ $(function () {
                     "</div>" +
                 "</div>";
 
-            $("#chat .panel-body").append(template);
+            panel.append(template);
+            panel.scrollTop(panel[0].scrollHeight);
         };
     }
 });

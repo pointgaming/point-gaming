@@ -17,5 +17,6 @@
 //= require pixel-admin.min
 //= require effects
 //= require streams
+//= require collaborators
 //= require chat
 

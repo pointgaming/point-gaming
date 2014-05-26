@@ -1,0 +1,9 @@
+.tab-pane#chat-tab
+  #chat.panel.widget-chat{data: { channel_id: @stream.id }}
+    .panel-body{style: "max-height: 400px; overflow-y: scroll"}
+      %strong You are now connected.
+      %p
+    %form.panel-footer.chat-controls
+      .chat-controls-input
+        %textarea#chat-input.form-control{rows: 1, style: "overflow: hidden; word-wrap: break-word; resize: horizontal; height: 32px;"}
+      %button#send-chat-input.btn.btn-primary.chat-controls-btn Send

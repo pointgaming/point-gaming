@@ -12,7 +12,7 @@ module Sluggable
 
     validate do |sluggable|
       # If the slug is already taken, present it as though the name is already taken.
-      if sluggable.class.where(slug: sluggable.slug).exists?
+      if sluggable.class.where(slug: sluggable.slug, "$not" => { "_id" => sluggable._id }).exists?
         sluggable.errors.add sluggable.class.slug_field.to_sym, "is already taken"
       end
     end
@@ -33,5 +33,15 @@ module Sluggable
 
   def to_param
     slug
+  end
+
+  module ClassMethods
+    def find(param)
+      if BSON::ObjectId.legal?(param)
+        super
+      else
+        find_by(slug: param)
+      end
+    end
   end
 end

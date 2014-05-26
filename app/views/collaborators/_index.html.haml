@@ -1,0 +1,17 @@
+%table{class: "table table-striped table-condensed", id: "collaborators"}
+  %thead
+    %tr
+      %th #
+      %th Username
+      %th
+  %tbody
+    %tr
+      %td 1
+      %td= @stream.user
+      %td
+
+    - User.where(:_id.in => @stream.collaborators).each do |user|
+      %tr
+        %td= count(:user, start_at: 2)
+        %td= user
+        %td= link_to "Remove", stream_collaborator_path(@stream, user), class: "remove-collaborator"

@@ -1,24 +1,41 @@
-.col-md-6
-  .row
-    %object{data: "http://www.twitch.tv/widgets/live_embed_player.swf?channel=#{@stream.channel_name}", height: "360", type: "application/x-shockwave-flash", width: "590"}
-      %param{name: "allowFullScreen", value: "true"}
-      %param{name: "allowScriptAccess", value: "always"}
-      %param{name: "allowNetworking", value: "all"}
-      %param{name: "movie", value: "http://www.twitch.tv/widgets/live_embed_player.swf"}
-      %param{name: "flashvars", value: "hostname=www.twitch.tv&amp;channel=#{@stream.channel_name}&amp;auto_play=true&amp;start_volume=25"}
+#stream-wrapper{data: { stream_id: @stream.slug }}
+  .col-md-6
+    .row
+      %object{data: "http://www.twitch.tv/widgets/live_embed_player.swf?channel=#{@stream.channel_name}", height: "360", type: "application/x-shockwave-flash", width: "590"}
+        %param{name: "allowFullScreen", value: "true"}
+        %param{name: "allowScriptAccess", value: "always"}
+        %param{name: "allowNetworking", value: "all"}
+        %param{name: "movie", value: "http://www.twitch.tv/widgets/live_embed_player.swf"}
+        %param{name: "flashvars", value: "hostname=www.twitch.tv&amp;channel=#{@stream.channel_name}&amp;auto_play=true&amp;start_volume=25"}
 
-  .row
-    = markdown @stream.description
+    .row
+      = markdown @stream.description
 
-.col-md-6
-  .row
-    #chat.panel.widget-chat{data: { channel_id: @stream.id }}
-      .panel-heading
-        %span.panel-title
-          %i.panel-title-icon.fa.fa-comments-o
-          Chat
-      .panel-body
-      %form.panel-footer.chat-controls
-        .chat-controls-input
-          %textarea#chat-input.form-control{rows: 1, style: "overflow: hidden; word-wrap: break-word; resize: horizontal; height: 32px;"}
-        %button#send-chat-input.btn.btn-primary.chat-controls-btn Send
+  .col-md-6
+    .row
+      %ul.nav.nav-tabs.nav-tabs-simple
+        %li.active
+          %a{href: "#bets-tab", data: { toggle: "tab" }}
+            %i.panel-title-icon.fa.fa-usd
+            Bets
+        %li
+          %a{href: "#chat-tab", data: { toggle: "tab" }}
+            %i.panel-title-icon.fa.fa-comments-o
+            Chat
+
+        - if @stream.collaborator?(current_user)
+          %li
+            %a{href: "#collaborators-tab", data: { toggle: "tab" }}
+              %i.panel-title-icon.fa.fa-users
+              Collaborators
+          %li
+            %a{href: "#match-tab", data: { toggle: "tab" }}
+              %i.panel-title-icon.fa.fa-gamepad
+              Match
+
+      .tab-content
+        = render partial: "/streams/tabs/bets"
+        = render partial: "/streams/tabs/chat"
+        - if @stream.collaborator?(current_user)
+          = render partial: "/streams/tabs/collaborators"
+          = render partial: "/streams/tabs/match"
