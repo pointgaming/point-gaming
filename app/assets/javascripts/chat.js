@@ -26,7 +26,13 @@ $(function () {
     });
         
     if (channelId) {
-        url = "ws://" + window.location.host + "/chat?channel_id=";
+        url = "ws";
+
+        if (window.location.protocol.match("https")) {
+            url += "s";
+        }
+
+        url += "://" + window.location.host + "/chat?channel_id=";
 
         socket = new WebSocket(url + channelId);
         socket.onmessage = function (e) {
