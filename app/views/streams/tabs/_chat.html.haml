@@ -1,6 +1,6 @@
 .tab-pane#chat-tab
   #chat.panel.widget-chat{data: { channel_id: @stream.id }}
-    .panel-body{style: "max-height: 400px; overflow-y: scroll"}
+    .panel-body{style: "min-height: 400px; max-height: 400px; overflow-y: scroll"}
       %strong You are now connected.
       %p
     %form.panel-footer.chat-controls

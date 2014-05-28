@@ -18,9 +18,8 @@ $(function () {
             return false;
         };
 
-    $("#send-chat-input").click(sendMessage);
-
-    $("#chat-input").keypress(function (e) {
+    $(document).on("click", "#send-chat-input", sendMessage);
+    $(document).on("keypress", "#chat-input", function (e) {
         if (e.keyCode === 13) {
             return sendMessage();
         }
@@ -34,7 +33,7 @@ $(function () {
             var data = JSON.parse(e.data),
                 panel = $("#chat .panel-body");
 
-            template = "" +
+            template = " " +
                 "<div class='message'>" +
                     "<img alt='' class='message-avatar' src='" +
                         data.avatar +

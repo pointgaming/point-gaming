@@ -1,1 +1,10 @@
 .tab-pane#match-tab
+  .pull-left
+    %button.btn.btn-flat.btn-labeled
+      %span.btn-label.icon.fa.fa-stop
+      Stop Match
+
+  .pull-right
+    %button.btn.btn-flat.btn-labeled.btn-primary{data: { toggle: "modal", target: "#new-match-modal" }}
+      %span.btn-label.icon.fa.fa-plus
+      New Match
