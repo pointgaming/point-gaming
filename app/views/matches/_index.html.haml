@@ -1,0 +1,12 @@
+%table{class: "table table-striped table-condensed", id: "matches"}
+  %thead
+    %tr
+      %th #
+      %th Player 1
+      %th Player 2
+  %tbody
+    - @stream.matches.desc(:created_at).limit(20).each do |match|
+      %tr{class: match_class(match)}
+        %td= count(:matches)
+        %td= strong_winner(match, 1)
+        %td= strong_winner(match, 2)

@@ -7,6 +7,7 @@ class Stream
   slug_by :name
 
   belongs_to :user
+  embeds_many :matches
 
   field :name,            type: String
   field :description,     type: String

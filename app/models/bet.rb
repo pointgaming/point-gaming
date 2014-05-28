@@ -1,5 +1,6 @@
 class Bet
   include Mongoid::Document
+  include Mongoid::Timestamps
 
   belongs_to :challenger, class_name: "User"
   belongs_to :taker,      class_name: "User"

@@ -1,0 +1,23 @@
+#new-match-modal.modal.fade{role: "dialog"}
+  = form_for [@stream, Match.new], remote: true, html: { id: "new-match-form", class: "form-horizontal" } do |f|
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+          %h4#new-stream-modal-label.modal-title New Match
+        .modal-body
+          .form-group
+            = f.label :player1, "Player 1", class: "col-sm-2 control-label"
+            .col-sm-10
+              = f.text_field :player1, class: "form-control"
+          .form-group
+            = f.label :player2, "Player 2", class: "col-sm-2 control-label"
+            .col-sm-10
+              = f.text_field :player2, class: "form-control"
+          .form-group
+            = f.label :game, class: "col-sm-2 control-label"
+            .col-sm-10
+              = f.text_field :game, class: "form-control"
+      .modal-footer
+        %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Cancel
+        %button.btn.btn-primary.create-match.popover-danger.popover-dark.popover-colorful{type: "submit"} Create Match

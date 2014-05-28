@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
 //= require bootstrap.min
 //= require turbolinks
@@ -19,4 +20,5 @@
 //= require streams
 //= require collaborators
 //= require chat
+//= require matches
 

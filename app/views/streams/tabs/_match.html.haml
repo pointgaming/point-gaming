@@ -1,6 +1,6 @@
 .tab-pane#match-tab
   .pull-left
-    %button.btn.btn-flat.btn-labeled
+    %button.btn.btn-flat.btn-labeled.hidden
       %span.btn-label.icon.fa.fa-stop
       Stop Match
 
@@ -8,3 +8,7 @@
     %button.btn.btn-flat.btn-labeled.btn-primary{data: { toggle: "modal", target: "#new-match-modal" }}
       %span.btn-label.icon.fa.fa-plus
       New Match
+
+  = render partial: "/matches/index"
+
+= render partial: "/matches/new"

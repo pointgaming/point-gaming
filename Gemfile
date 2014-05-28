@@ -19,6 +19,7 @@ gem "json"
 # Kind of care.
 gem "less-rails"
 gem "jquery-rails"
+gem "jquery-turbolinks"
 
 # Don't care.
 gem "sass-rails", "~> 4.0.3"

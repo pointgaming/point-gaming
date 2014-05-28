@@ -1,6 +1,5 @@
 class CollaboratorsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :get_stream
+  include Streamable
 
   def index
     render partial: "index", layout: false
@@ -20,14 +19,5 @@ class CollaboratorsController < ApplicationController
     @stream.save
 
     head :ok
-  end
-
-  private
-  def get_stream
-    @stream = Stream.find(params[:stream_id])
-
-    unless @stream.collaborator?(current_user)
-      redirect_to root_path, alert: "Access denied."
-    end
   end
 end
