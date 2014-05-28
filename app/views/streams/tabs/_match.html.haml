@@ -1,8 +1,11 @@
 .tab-pane#match-tab
   .pull-left
-    %button.btn.btn-flat.btn-labeled.hidden
-      %span.btn-label.icon.fa.fa-stop
-      Stop Match
+    %button.btn.btn-flat.btn-labeled{class: match_button_class(@stream)}
+      %span.btn-label.icon.fa{class: @stream.active_match?? "fa-stop" : "fa-play"}
+      - if @stream.active_match?
+        Match Finished
+      - else
+        Match Started
 
   .pull-right
     %button.btn.btn-flat.btn-labeled.btn-primary{data: { toggle: "modal", target: "#new-match-modal" }}

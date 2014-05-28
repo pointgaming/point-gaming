@@ -18,4 +18,16 @@ module MatchesHelper
       ""
     end
   end
+
+  def match_button_class(stream)
+    if stream.initialized_match?
+      if stream.active_match?
+        "btn-danger"
+      else
+        "btn-success"
+      end
+    else
+      "hidden"
+    end
+  end
 end

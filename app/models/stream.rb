@@ -22,4 +22,12 @@ class Stream
   def collaborator?(user)
     self.user == user || collaborators.include?(user.id)
   end
+
+  def initialized_match?
+    matches.where(active: false, winner: 0).exists?
+  end
+
+  def active_match?
+    matches.where(active: true).exists?
+  end
 end
