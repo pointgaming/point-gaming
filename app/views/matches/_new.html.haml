@@ -18,6 +18,10 @@
             = f.label :game, class: "col-sm-2 control-label"
             .col-sm-10
               = f.text_field :game, class: "form-control"
+          .form-group
+            = f.label :map, class: "col-sm-2 control-label"
+            .col-sm-10
+              = f.text_field :map, class: "form-control"
       .modal-footer
         %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Cancel
         %button.btn.btn-primary.create-match.popover-danger.popover-dark.popover-colorful{type: "submit"} Create Match

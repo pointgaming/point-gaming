@@ -35,7 +35,7 @@ class MatchesController < ApplicationController
 
   private
   def new_match_params
-    params.require(:match).permit(:player1, :player2, :game)
+    params.require(:match).permit(:player1, :player2, :game, :map)
   end
 
   def update_match_params

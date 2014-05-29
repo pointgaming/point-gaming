@@ -27,6 +27,7 @@ class Match
   field :player2, type: String
   field :game,    type: String
   field :winner,  type: Integer
+  field :map,     type: String
 
   validates :game, presence: true
   validates :winner, numericality: { integer: true, greater_than: 0, less_than: 3, allow_blank: true }
