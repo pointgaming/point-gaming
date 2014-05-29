@@ -24,10 +24,10 @@ class Stream
   end
 
   def initialized_match?
-    matches.where(active: false, winner: 0).exists?
+    matches.where(workflow_state: "initialized").exists?
   end
 
   def active_match?
-    matches.where(active: true).exists?
+    matches.where(:workflow_state.in => ["started","stopped"]).exists?
   end
 end

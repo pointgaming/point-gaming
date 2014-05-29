@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :streams do
     resources :collaborators, only: [:index, :create, :destroy]
-    resources :matches,       only: [:index, :create, :destroy]
+    resources :matches,       only: [:index, :create, :destroy, :update]
 
     collection { get "validate_name" }
   end

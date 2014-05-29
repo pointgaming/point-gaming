@@ -1,17 +1,21 @@
 .tab-pane#match-tab
-  .pull-left
-    %button.btn.btn-flat.btn-labeled{class: match_button_class(@stream)}
-      %span.btn-label.icon.fa{class: @stream.active_match?? "fa-stop" : "fa-play"}
-      - if @stream.active_match?
-        Match Finished
-      - else
-        Match Started
+  .row
+    .pull-left
+      %button#match-button.btn.btn-flat.btn-labeled{class: match_button_class(@stream)}
+        %span.btn-label.icon.fa{class: @stream.active_match?? "fa-stop" : "fa-play"}
+        %span.match-button-text
+          - if @stream.active_match?
+            Stop Match
+          - else
+            Start Match
 
-  .pull-right
-    %button.btn.btn-flat.btn-labeled.btn-primary{data: { toggle: "modal", target: "#new-match-modal" }}
-      %span.btn-label.icon.fa.fa-plus
-      New Match
+    .pull-right
+      %button.btn.btn-flat.btn-labeled.btn-primary{data: { toggle: "modal", target: "#new-match-modal" }}
+        %span.btn-label.icon.fa.fa-plus
+        New Match
 
-  = render partial: "/matches/index"
+  .row
+    %h2 Match History
+    = render partial: "/matches/index"
 
 = render partial: "/matches/new"

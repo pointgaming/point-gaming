@@ -15,6 +15,7 @@ gem "redis"
 gem "puma"
 gem "tubesock"
 gem "json"
+gem "workflow"
 
 # Kind of care.
 gem "less-rails"
