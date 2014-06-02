@@ -1,4 +1,5 @@
 class StreamsController < ApplicationController
+  include Tubesock::Hijack
   before_filter :authenticate_user!
 
   def index
@@ -6,7 +7,7 @@ class StreamsController < ApplicationController
   end
 
   def show
-    @stream = Stream.find_by(slug: params[:id])
+    @stream = Stream.find(params[:id])
   end
 
   def create
@@ -24,7 +25,7 @@ class StreamsController < ApplicationController
     @stream.valid?
 
     if Stream.any_of({ name: @stream.name }, { slug: @stream.slug }).exists?
-      render json: "Name is already taken.".to_json
+      render json: '"Name is already taken."'
     else
       render json: true
     end

@@ -1,13 +1,9 @@
 (function () {
     "use strict";
 
-    var streamUrl = function () {
-            var streamId = $("#stream-wrapper").data("stream-id");
-            return "/streams/" + streamId;
-        },
-        reloadTable = function () {
+    var reloadTable = function () {
             $.ajax({
-                url: streamUrl() + "/matches",
+                url: PointGaming.streamUrl() + "/matches",
                 method: "GET",
 
                 success: function (data) {

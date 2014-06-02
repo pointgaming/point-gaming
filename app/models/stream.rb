@@ -28,6 +28,23 @@ class Stream
   end
 
   def active_match?
-    matches.where(:workflow_state.in => ["started","stopped"]).exists?
+    active_match_query.exists?
+  end
+
+  def active_match
+    active_match_query.first
+  end
+
+  def twitch?
+    channel_source == "twitch"
+  end
+
+  def youtube?
+    channel_source == "youtube"
+  end
+
+  private
+  def active_match_query
+    matches.where(:workflow_state.in => ["started","stopped"])
   end
 end

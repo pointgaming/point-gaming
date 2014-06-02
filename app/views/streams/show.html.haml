@@ -1,12 +1,15 @@
 #stream-wrapper{data: { stream_id: @stream.slug }}
   .col-md-6
     .row
-      %object{data: "https://www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf?channel=#{@stream.channel_name}", height: "360", type: "application/x-shockwave-flash", width: "590"}
-        %param{name: "allowFullScreen", value: "true"}
-        %param{name: "allowScriptAccess", value: "always"}
-        %param{name: "allowNetworking", value: "all"}
-        %param{name: "movie", value: "https://www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf"}
-        %param{name: "flashvars", value: "hostname=www.twitch.tv&amp;channel=#{@stream.channel_name}&amp;auto_play=true&amp;start_volume=25"}
+      - if @stream.twitch?
+        %object{data: "https://www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf?channel=#{@stream.channel_name}", height: "360", type: "application/x-shockwave-flash", width: "590"}
+          %param{name: "allowFullScreen", value: "true"}
+          %param{name: "allowScriptAccess", value: "always"}
+          %param{name: "allowNetworking", value: "all"}
+          %param{name: "movie", value: "https://www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf"}
+          %param{name: "flashvars", value: "hostname=www.twitch.tv&amp;channel=#{@stream.channel_name}&amp;auto_play=true&amp;start_volume=25"}
+      - elsif @stream.youtube?
+        %iframe{width: 560, height: 315, src: "https://www.youtube.com/embed/#{@stream.channel_source}", allowfullscreen: "allowfullscreen"}
 
     .row
       = markdown @stream.description

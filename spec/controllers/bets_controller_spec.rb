@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe ChatController do
+describe BetsController do
 
 end

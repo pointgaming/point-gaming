@@ -22,6 +22,7 @@ class Match
   end
 
   embedded_in :stream
+  embeds_many :bets
 
   field :player1, type: String
   field :player2, type: String
@@ -37,10 +38,6 @@ class Match
         where(:workflow_state.ne => "finalized").exists?
       match.errors.add :base, "Finalize all previous matches first."
     end
-  end
-
-  def deactivate!
-    set(active: false)
   end
 
   def set_winner!(params)

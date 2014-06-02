@@ -4,13 +4,14 @@ Rails.application.routes.draw do
   resources :streams do
     resources :collaborators, only: [:index, :create, :destroy]
     resources :matches,       only: [:index, :create, :destroy, :update]
+    resources :bets,          only: [:index, :create, :destroy, :update]
 
     collection { get "validate_name" }
   end
 
   get "users/search" => "users#search"
-
   get "dashboard" => "dashboard#index"
-  get "chat" => "chat#chat", as: "chat"
+  get "socket" => "socket#index"
+
   root "dashboard#index"
 end
