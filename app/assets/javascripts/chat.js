@@ -2,7 +2,6 @@
     "use strict";
 
     var template,
-        channelId,
         sendMessage = function () {
             var input = $("#chat-input").val(),
                 data = {

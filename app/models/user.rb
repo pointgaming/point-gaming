@@ -6,8 +6,6 @@ class User
   include Avatarable
 
   has_many :streams
-  has_many :bets_as_challenger, class_name: "Bet", as: :challenger
-  has_many :bets_as_taker,      class_name: "Bet", as: :taker
 
   slug_by :username
   validates :username, format: { with: /\A[\w\-]([\w\s\-](?<!\s(?<=\s\s))){2,15}(?<!\s)\z/,

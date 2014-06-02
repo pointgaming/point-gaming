@@ -23,28 +23,31 @@ class Stream
     self.user == user || collaborators.include?(user.id)
   end
 
-  def initialized_match?
-    matches.where(workflow_state: "initialized").exists?
+  [:initialized, :active, :betable].each do |t|
+    define_method "#{t}_match?" do
+      send("#{t}_match_query").exists?
+    end
+    define_method "#{t}_match" do
+      send("#{t}_match_query").first
+    end
   end
 
-  def active_match?
-    active_match_query.exists?
-  end
-
-  def active_match
-    active_match_query.first
-  end
-
-  def twitch?
-    channel_source == "twitch"
-  end
-
-  def youtube?
-    channel_source == "youtube"
+  [:twitch, :youtube].each do |s|
+    define_method "#{s}?" do
+      channel_source == "#{s}"
+    end
   end
 
   private
+  def initialized_match_query
+    matches.where(:workflow_state.in => ["initialized"])
+  end
+
   def active_match_query
     matches.where(:workflow_state.in => ["started","stopped"])
+  end
+
+  def betable_match_query
+    matches.where(:workflow_state.in => ["initialized","started","stopped"])
   end
 end

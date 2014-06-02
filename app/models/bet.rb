@@ -33,7 +33,7 @@ class Bet
                                       less_than_or_equal_to: 2 }
 
   def publish
-    channel = "bets.#{match.stream.id.to_s}"
+    channel = "stream.#{match.stream.id.to_s}"
     Redis.new.publish(channel, self.as_json)
   end
 end
