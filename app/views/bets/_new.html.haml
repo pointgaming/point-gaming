@@ -1,0 +1,23 @@
+#new-bet-modal.modal.fade{role: "dialog"}
+  = form_for [@stream, Bet.new], remote: true, html: { id: "new-bet-form", class: "form-horizontal" } do |f|
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+          %h4.modal-title New Bet
+        .modal-body
+          .form-group
+            = f.label :player, class: "col-sm-2 control-label"
+            .col-sm-10
+              = f.text_field :player, class: "form-control"
+          .form-group
+            = f.label :points, class: "col-sm-2 control-label"
+            .col-sm-10
+              = f.text_field :points, class: "form-control"
+          .form-group
+            = f.label :odds, class: "col-sm-2 control-label"
+            .col-sm-10
+              = f.text_field :odds, class: "form-control"
+      .modal-footer
+        %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Cancel
+        %button.btn.btn-primary.create-bet.popover-danger.popover-dark.popover-colorful{type: "submit"} Propose
