@@ -3,6 +3,9 @@ class Bet
   include Mongoid::Timestamps
   include Workflow
   include WorkflowMongoid
+  include Publishable
+
+  publish_channel ->(bet){ bet.match.stream }
 
   workflow do
     state :initialized do
@@ -15,8 +18,6 @@ class Bet
 
     state :finalized
   end
-
-  after_save :publish
 
   belongs_to  :challenger, class_name: "User"
   belongs_to  :taker,      class_name: "User"
@@ -31,9 +32,4 @@ class Bet
   validates :player,  presence: true,
                       numericality: { greater_than_or_equal_to: 1,
                                       less_than_or_equal_to: 2 }
-
-  def publish
-    channel = "stream.#{match.stream.id.to_s}"
-    Redis.new.publish(channel, self.as_json)
-  end
 end

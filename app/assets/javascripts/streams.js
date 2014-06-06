@@ -1,9 +1,11 @@
+var PointGaming = PointGaming || {};
+
 (function () {
     "use strict";
 
     var channelId;
 
-    $(function () {
+    $(document).on("ready page:load", function () {
         channelId = $("#stream-wrapper").data("stream-id");
 
         if (channelId) {

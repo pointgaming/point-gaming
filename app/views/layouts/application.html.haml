@@ -12,12 +12,6 @@
     %link{href: "http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin", rel: "stylesheet", type: "text/css"}
     = stylesheet_link_tag :application
     = javascript_include_tag :application
-    :javascript
-      var PointGaming;
-
-      if (!PointGaming) {
-          PointGaming = {};
-      }
 
   %body{class: "theme-default no-main-menu #{yield(:body_class)}"}
     - if devise_controller?

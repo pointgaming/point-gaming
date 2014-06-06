@@ -27,7 +27,7 @@ module Sluggable
   def set_slug
     slug_field = self.class.slug_field
     if new_record? || send("#{slug_field}_changed?") || slug.blank?
-      self.slug = send(slug_field).downcase.gsub(/[^\w\s]+/, "").gsub(/\s+/, "-")
+      self.slug = send(slug_field).parameterize
     end
   end
 

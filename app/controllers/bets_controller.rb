@@ -3,8 +3,6 @@ class BetsController < ApplicationController
   before_filter :get_stream
 
   def index
-    @match = @stream.betable_match
-
     render partial: "index", layout: false
   end
 
@@ -39,5 +37,9 @@ class BetsController < ApplicationController
     @match = @stream.initialized_match
 
     render nothing: true unless @match
+  end
+
+  def get_stream
+    @stream = Stream.find(params[:stream_id])
   end
 end

@@ -4,6 +4,9 @@ class Match
   include Workflow
   include WorkflowMongoid
   include Betable
+  include Publishable
+
+  publish_channel ->(match) { match.stream }
 
   workflow do
     state :initialized do

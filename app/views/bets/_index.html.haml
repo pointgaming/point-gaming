@@ -1,17 +1,31 @@
-%table{class: "table table-striped table-condensed", id: "bets"}
-  %thead
-    %tr
-      %th Player To Win
-      %th Points
-      %th Odds
-      %th Challenger
-      %th
-  %tbody
-    - match = @stream.betable_match
-    - match.bets.each do |bet|
-      %tr
-        %td= match.send(:"player#{bet.player}")
-        %td= bet.points
-        %td= bet.odds
-        %td= link_to bet.challenger, "/users/#{bet.challenger}"
-        %td= link_to "Accept", "#"
+- match = @stream.betable_match
+
+#bets
+  - if match
+    - if match.initialized?
+      .row
+        .pull-right
+          %button.btn.btn-flat.btn-labeled.btn-primary{data: { toggle: "modal", target: "#new-bet-modal" }}
+            %span.btn-label.icon.fa.fa-plus
+            Propose Bet
+
+      %table{class: "table table-striped table-condensed all-bets"}
+        %thead
+          %tr
+            %th Player To Win
+            %th Points
+            %th Odds
+            %th Challenger
+            %th Taker
+            %th
+        %tbody
+          - match.bets.each do |bet|
+            %tr{data: { bet_id: bet.id }}
+              %td= match.send(:"player#{bet.player}")
+              %td= bet.points
+              %td= bet.odds
+              %td= link_to bet.challenger, "/users/#{bet.challenger}"
+              %td= link_to bet.taker, "/users/#{bet.taker}" if bet.taker
+              %td= link_to "Accept", "#"
+    - else
+      All bets closed.

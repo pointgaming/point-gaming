@@ -1,8 +1,4 @@
-var PointGaming;
-
-if (!PointGaming) {
-    PointGaming = {};
-}
+var PointGaming = PointGaming || {};
 
 PointGaming = (function () {
     "use strict";
@@ -15,24 +11,19 @@ PointGaming = (function () {
             message: []
         },
         module,
-        
+        state = {},
+
         CONNECTING = 0,
         OPEN = 1,
         CLOSING = 2,
         CLOSED = 3;
 
     function callHandlers(on, data) {
-        var handler, i, fs;
-
-        if (handlers.hasOwnProperty(on)) {
-            fs = handlers[on];
-
-            for (i = 0; i < fs.length; i += 1) {
-                if (typeof fs[i] === "function") {
-                    fs[i](data);
-                }
+        handlers[on].forEach(function (fn) {
+            if (typeof fn === "function") {
+                fn(data);
             }
-        }
+        });
     }
 
     function assembleSocket() {
@@ -61,6 +52,11 @@ PointGaming = (function () {
         };
         socket.onmessage = function (e) {
             var data = JSON.parse(e.data);
+
+            if (data["class"]) {
+                state[data["class"]] = data.data;
+            }
+
             callHandlers("message", data);
         };
     }
@@ -73,11 +69,30 @@ PointGaming = (function () {
             return "/streams/" + streamId;
         },
 
+        reloadStreamTable: function (resource) {
+            $.ajax({
+                url: module.streamUrl() + "/" + resource,
+                method: "GET",
+
+                success: function (data) {
+                    $("#" + resource).replaceWith(data);
+                }
+            });
+        },
+
+        getCurrentMatch: function () {
+            return state.match;
+        },
+
         subscribe: function (chan) {
             var data = {
                 action: "subscribe",
                 channel: chan
             };
+
+            if (channel) {
+                module.unsubscribe(channel);
+            }
 
             channel = chan;
 
@@ -110,14 +125,28 @@ PointGaming = (function () {
         },
 
         on: function (on, action, handler) {
-            if (handlers.hasOwnProperty(on)) {
-                if (typeof action === "function") {
-                    handler = action;
-                }
+            if (typeof action === "function") {
+                handler = action;
+            }
 
-                if (typeof handler === "function") {
+            if (typeof handler === "function") {
+                if (on === "message") {
                     handlers[on].push(function (data) {
-                        handler(data);
+                        var splitAction = action.split(":");
+
+                        if (data.action === splitAction[0]) {
+                            if (splitAction[1]) {
+                                if (data["class"] === splitAction[1]) {
+                                    handler(data);
+                                }
+                            } else {
+                                handler(data);
+                            }
+                        }
+                    });
+                } else {
+                    handlers[on].push(function () {
+                        handler();
                     });
                 }
             }

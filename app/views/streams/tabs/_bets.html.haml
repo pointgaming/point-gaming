@@ -1,9 +1,3 @@
 .tab-pane.active#bets-tab
-  .row
-    .pull-right
-      %button.btn.btn-flat.btn-labeled.btn-primary{data: { toggle: "modal", target: "#new-bet-modal" }}
-        %span.btn-label.icon.fa.fa-plus
-        Propose Bet
-
   = render partial: "/bets/index"
   = render partial: "/bets/new"

@@ -1,22 +1,14 @@
+var PointGaming = PointGaming || {};
+
 (function () {
     "use strict";
 
     var streamUrl = function () {
             var streamId = $("#stream-wrapper").data("stream-id");
             return "/streams/" + streamId;
-        },
-        reloadTable = function () {
-            $.ajax({
-                url: streamUrl() + "/collaborators",
-                method: "GET",
-
-                success: function (data) {
-                    $("#collaborators").replaceWith(data);
-                }
-            });
         };
 
-    $(function () {
+    $(document).on("ready page:load", function () {
         $("#new-collaborator").select2({
             placeholder: "Search username...",
             minimumInputLength: 3,
@@ -57,7 +49,7 @@
             });
 
             e.preventDefault();
-            reloadTable();
+            PointGaming.reloadStreamTable("collaborators");
 
             $("#new-collaborator").select2("close");
 
@@ -72,7 +64,7 @@
                 method: "DELETE"
             });
 
-            reloadTable();
+            PointGaming.reloadStreamTable("collaborators");
 
             return false;
         }

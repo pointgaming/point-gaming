@@ -1,3 +1,5 @@
+var PointGaming = PointGaming || {};
+
 (function () {
     "use strict";
 

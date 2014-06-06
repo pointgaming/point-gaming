@@ -9,7 +9,7 @@
           .form-group
             = f.label :player, class: "col-sm-2 control-label"
             .col-sm-10
-              = f.text_field :player, class: "form-control"
+              = f.select :player, player_options(@stream), { prompt: "- Select -" }, class: "form-control"
           .form-group
             = f.label :points, class: "col-sm-2 control-label"
             .col-sm-10

@@ -8,6 +8,7 @@ class SocketController < ApplicationController
       tubesock.onmessage do |data|
         data = JSON.parse(data) rescue nil
         next unless valid_message(data)
+
         if data["action"] == "subscribe" && redis_threads[@channel].blank?
           redis_threads[@channel] = Thread.new do
             Redis.new.subscribe(@channel) do |on|
@@ -37,14 +38,15 @@ class SocketController < ApplicationController
     channel = channel.to_s.downcase
 
     if channel =~ /stream\.([\w\-]+)/
-      @channel = $1 if Stream.where(slug: $1).exists?
+      @channel = channel if Stream.where(slug: $1).exists?
     end
 
     @channel ? true : false
   end
 
   def valid_message(data)
-    actions = ["chat","bet","subscribe","unsubscribe"]
+    actions = ["chat","subscribe","unsubscribe","update"]
+
     return false unless data && data.is_a?(Hash)
     return false unless actions.include?(data["action"])
     return false unless valid_channel(data["channel"])

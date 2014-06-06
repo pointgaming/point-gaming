@@ -1,17 +1,9 @@
+var PointGaming = PointGaming || {};
+
 (function () {
     "use strict";
 
-    var reloadTable = function () {
-            $.ajax({
-                url: PointGaming.streamUrl() + "/matches",
-                method: "GET",
-
-                success: function (data) {
-                    $("#matches").replaceWith(data);
-                }
-            });
-        },
-        updateButtonState = function (state) {
+    var updateButtonState = function (state) {
             var button = $("#match-button"),
                 icon = button.find("span.btn-label"),
                 text = button.find("span.match-button-text");
@@ -35,7 +27,7 @@
             }
         };
 
-    $(function () {
+    $(document).on("ready page:load", function () {
         $("#new-match-form").validate({
             rules: {
                 "match[player1]": {
@@ -53,7 +45,7 @@
 
     $(document).on("ajax:success", "form#new-match-form", function () {
         $("#new-match-modal").modal("hide");
-        reloadTable();
+        PointGaming.reloadStreamTable("matches");
         updateButtonState("initialized");
     });
 
@@ -67,14 +59,14 @@
             $("button.create-match").popover("destroy");
         }, 2000);
 
-        reloadTable();
+        PointGaming.reloadStreamTable("matches");
     });
 
     $(document).on("click", "#match-button", function () {
         var text = $(this).find("span.match-button-text");
 
         $.ajax({
-            url: streamUrl() + "/matches/active",
+            url: PointGaming.streamUrl() + "/matches/active",
             method: "PUT",
 
             success: function (data) {
@@ -84,7 +76,7 @@
                     bootbox = window.bootbox,
                     declareWinner = function (winner) {
                         $.ajax({
-                            url: streamUrl() + "/matches/active",
+                            url: PointGaming.streamUrl() + "/matches/active",
                             method: "PUT",
                             data: {
                                 match: {
@@ -92,7 +84,7 @@
                                 }
                             },
                             success: function () {
-                                reloadTable();
+                                PointGaming.reloadStreamTable("matches");
                                 updateButtonState("finalized");
                             }
                         });
@@ -135,8 +127,13 @@
                     }
                 }
 
-                reloadTable();
+                PointGaming.reloadStreamTable("matches");
             }
         });
+    });
+
+    PointGaming.on("message", "update:match", function (data) {
+        PointGaming.reloadStreamTable("matches");
+        updateButtonState(PointGaming.getCurrentMatch().workflow_state);
     });
 }());
