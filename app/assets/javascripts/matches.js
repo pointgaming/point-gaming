@@ -80,7 +80,7 @@ var PointGaming = PointGaming || {};
                             method: "PUT",
                             data: {
                                 match: {
-                                    winner: (winner === null ? "null" : winner)
+                                    winner: winner
                                 }
                             }
                         });
@@ -98,14 +98,14 @@ var PointGaming = PointGaming || {};
                                     label: player1,
                                     className: "btn-primary",
                                     callback: function () {
-                                        declareWinner(player1);
+                                        declareWinner(1);
                                     }
                                 },
                                 danger: {
                                     label: player2,
                                     className: "btn-primary",
                                     callback: function () {
-                                        declareWinner(player2);
+                                        declareWinner(2);
                                     }
                                 },
                                 main: {

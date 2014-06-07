@@ -63,12 +63,7 @@ class Match
   end
 
   def set_winner!(params)
-    winner = params[:winner]
-
-    if player1 == winner
-      set(winner: 1)
-    elsif player2 == winner
-      set(winner: 2)
-    end
+    winner = params[:winner].to_i
+    set(winner: winner) if [1, 2].include?(winner)
   end
 end
