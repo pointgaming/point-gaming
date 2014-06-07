@@ -37,9 +37,28 @@ class Match
   validates :winner, numericality: { integer: true, greater_than: 0, less_than: 3, allow_blank: true }
 
   validate do |match|
-    if stream.matches.where(:_id.not => match.id).
+    if match.stream.matches.where(:_id.not => match.id).
         where(:workflow_state.ne => "finalized").exists?
       match.errors.add :base, "Finalize all previous matches first."
+    end
+  end
+
+  def start
+    bets.where(taker: nil).destroy
+  end
+
+  def finalize
+    if winner
+      bets.each do |bet|
+        points = (bet.player == winner) ? bet.points : -bet.points
+
+        if bet.player == winner
+          bet.challenger.inc(points: points)
+          bet.taker.dec(points: points)
+        end
+      end
+    else
+      bets.destroy
     end
   end
 

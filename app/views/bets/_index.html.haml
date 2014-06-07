@@ -26,6 +26,8 @@
               %td= bet.odds
               %td= link_to bet.challenger, "/users/#{bet.challenger}"
               %td= link_to bet.taker, "/users/#{bet.taker}" if bet.taker
-              %td= link_to "Accept", "#"
+              %td
+                - if bet.initialized?
+                  = link_to "Accept", "#", class: "accept-bet" unless bet.challenger == current_user
     - else
       All bets closed.

@@ -4,6 +4,7 @@ module Publishable
   included do
     cattr_accessor :publish_fn
     after_save :publish
+    after_destroy :publish
 
     def publish
       parent = self.class.publish_fn.call(self)

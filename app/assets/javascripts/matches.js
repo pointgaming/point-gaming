@@ -82,10 +82,6 @@ var PointGaming = PointGaming || {};
                                 match: {
                                     winner: (winner === null ? "null" : winner)
                                 }
-                            },
-                            success: function () {
-                                PointGaming.reloadStreamTable("matches");
-                                updateButtonState("finalized");
                             }
                         });
                     };
@@ -126,14 +122,13 @@ var PointGaming = PointGaming || {};
                         updateButtonState(data.workflow_state);
                     }
                 }
-
-                PointGaming.reloadStreamTable("matches");
             }
         });
     });
 
     PointGaming.on("message", "update:match", function (data) {
         PointGaming.reloadStreamTable("matches");
+        PointGaming.reloadStreamTable("bets");
         updateButtonState(PointGaming.getCurrentMatch().workflow_state);
     });
 }());

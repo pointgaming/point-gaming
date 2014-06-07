@@ -30,6 +30,13 @@ class Bet
   validates :points,  presence: true
   validates :odds,    presence: true
   validates :player,  presence: true,
-                      numericality: { greater_than_or_equal_to: 1,
-                                      less_than_or_equal_to: 2 }
+                      numericality: { greater_than: 0, less_than: 3 }
+
+  validate do |bet|
+    bet.errors.add :base, "Cannot take your own challenges." if bet.challenger == bet.taker
+  end
+
+  def accept(user)
+    self.taker = user
+  end
 end

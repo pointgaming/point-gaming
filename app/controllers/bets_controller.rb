@@ -7,25 +7,25 @@ class BetsController < ApplicationController
   end
 
   def create
-    @bet = initialized_match.bets.create(new_bet_params)
+    bet = initialized_match.bets.create(new_bet_params.merge(challenger: current_user))
 
-    if @bet.errors.present?
-      render json: @bet.errors.first, status: :unprocessable_entity
+    if bet.errors.present?
+      render json: bet.errors.first, status: :unprocessable_entity
     else
-      render json: @bet
+      render json: bet
     end
   end
 
   def update
-    @bet = initialized_match.bets.find(params[:id])
-    @bet.accept!(current_user)
+    bet = initialized_match.bets.find(params[:id])
+    bet.accept!(current_user)
 
-    render json: @bet
+    render json: bet
   end
 
   def destroy
     initialized_match.bets.find(params[:id]).destroy
-    render json: @bet
+    render json: bet
   end
 
   private
@@ -34,9 +34,9 @@ class BetsController < ApplicationController
   end
 
   def initialized_match
-    @match = @stream.initialized_match
-
-    render nothing: true unless @match
+    match = @stream.initialized_match
+    render nothing: true unless match
+    match
   end
 
   def get_stream

@@ -7,7 +7,7 @@
           %h4.modal-title New Bet
         .modal-body
           .form-group
-            = f.label :player, class: "col-sm-2 control-label"
+            = f.label :player, "Winner", class: "col-sm-2 control-label"
             .col-sm-10
               = f.select :player, player_options(@stream), { prompt: "- Select -" }, class: "form-control"
           .form-group
@@ -17,7 +17,21 @@
           .form-group
             = f.label :odds, class: "col-sm-2 control-label"
             .col-sm-10
-              = f.text_field :odds, class: "form-control"
+              .odds-slider.ui-slider-colors-demo
+              .pull-left
+                Unlikely
+                %br
+                %strong
+                  Bet:
+                %span.bet-points
+                  0
+              .pull-right{style: "text-align: right"}
+                Very likely
+                %br
+                %strong
+                  Winnings:
+                %span.bet-winnings
+                  0
       .modal-footer
         %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Cancel
         %button.btn.btn-primary.create-bet.popover-danger.popover-dark.popover-colorful{type: "submit"} Propose
