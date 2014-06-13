@@ -20,6 +20,7 @@ class Stream
   validates :channel_name,    presence: true
 
   def collaborator?(user)
+    return false unless user
     self.user == user || collaborators.include?(user.id)
   end
 

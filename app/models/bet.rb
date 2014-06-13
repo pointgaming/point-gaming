@@ -37,8 +37,14 @@ class Bet
     bet.errors.add :base, "Cannot take your own challenges." if bet.challenger == bet.taker
   end
 
+  validate do |bet|
+    if bet.stream.collaborator?(bet.challenger) || bet.stream.collaborator?(bet.taker)
+      bet.errors.add :base, "Cannot bet on your own stream."
+    end
+  end
+
   def can_be_accepted_by?(user)
-    initialized? && user.points >= points_required_to_accept && challenger != user
+    initialized? && user.points >= points_required_to_accept && challenger != user && !stream.collaborator?(user)
   end
 
   def accept(user)
@@ -83,6 +89,10 @@ class Bet
     elsif odds == 3
       points * 0.1
     end.round
+  end
+
+  def stream
+    match.stream
   end
 
   private

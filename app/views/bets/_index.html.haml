@@ -4,10 +4,11 @@
   - if match
     - if match.initialized?
       .row
-        .pull-right
-          %button#propose-bet.btn.btn-flat.btn-labeled.btn-primary{data: { toggle: "modal", target: "#new-bet-modal" }}
-            %span.btn-label.icon.fa.fa-plus
-            Propose Bet
+        - unless @stream.collaborator?(current_user)
+          .pull-right
+            %button#propose-bet.btn.btn-flat.btn-labeled.btn-primary{data: { toggle: "modal", target: "#new-bet-modal" }}
+              %span.btn-label.icon.fa.fa-plus
+              Propose Bet
 
       %table{class: "table table-striped table-condensed all-bets"}
         %thead
