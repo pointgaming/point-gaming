@@ -19,7 +19,7 @@ class Bet
     state :finalized
   end
 
-  after_create :deduct_points_from_challenger
+  before_create :deduct_points_from_challenger
 
   belongs_to  :challenger, class_name: "User"
   belongs_to  :taker,      class_name: "User"
