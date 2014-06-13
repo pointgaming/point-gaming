@@ -11,7 +11,7 @@ var PointGaming = PointGaming || {};
                     message: input
                 };
 
-            PointGaming.send(data);
+            PointGaming.send("stream", data);
 
             $("#chat-input").val("");
 

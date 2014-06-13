@@ -3,13 +3,15 @@ var PointGaming = PointGaming || {};
 (function () {
     "use strict";
 
-    var channelId;
+    var streamId;
 
     $(document).on("ready page:load", function () {
-        channelId = $("#stream-wrapper").data("stream-id");
+        streamId = $("#stream-wrapper").data("stream-id");
 
-        if (channelId) {
-            PointGaming.subscribe("stream." + channelId);
+        if (streamId) {
+            PointGaming.subscribe("stream", streamId);
+        } else {
+            PointGaming.unsubscribe("stream");
         }
 
         $("#new-stream-form").validate({

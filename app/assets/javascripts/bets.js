@@ -4,10 +4,20 @@ var PointGaming = PointGaming || {};
     "use strict";
 
     var resetModal = function () {
-            var match = PointGaming.getCurrentMatch();
-            // TODO
+            var match = PointGaming.getCurrentMatch(),
+                options = "";
+
+// NOTE: In this case, "match" may be null, since it only gets set initially
+// on the update:match event.
+
+            if (match) {
+                $("#bet_player").html("");
+                $("#bet_player").append($("<option>", { html: "- Select -" }));
+                $("#bet_player").append($("<option>", { html: match.player1, value: 1 }));
+                $("#bet_player").append($("<option>", { html: match.player2, value: 2 }));
+            }
         },
-        
+
         updateSlider = function () {
             var points = parseInt($("#bet_points").val(), 10),
                 value = $(".odds-slider").slider("value"),
@@ -31,7 +41,8 @@ var PointGaming = PointGaming || {};
                 winnings = points * 0.1;
             }
 
-            $(".bet-winnings").html(winnings);
+            $(".bet-winnings").html(Math.round(winnings));
+            $("#bet_odds").val(value);
         };
 
     PointGaming.on("message", "update:bet", function (data) {
@@ -58,6 +69,8 @@ var PointGaming = PointGaming || {};
         return false;
     });
 
+    $(document).on("click", "#propose-bet", resetModal);
+
     $(document).on("keyup", "#bet_points", updateSlider);
 
     $(document).on("ready page:load", function () {
@@ -68,6 +81,20 @@ var PointGaming = PointGaming || {};
             step: 1,
             slide: updateSlider,
             change: updateSlider
+        });
+
+        $("#new-bet-form").validate({
+            rules: {
+                "bet[player]": {
+                    required: true,
+                    min: 1,
+                    max: 2
+                },
+                "bet[points]": {
+                    required: true,
+                    min: 10
+                }
+            }
         });
     });
 }());

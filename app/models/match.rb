@@ -33,12 +33,11 @@ class Match
   field :winner,  type: Integer
   field :map,     type: String
 
-  validates :game, presence: true
-  validates :winner, numericality: { integer: true, greater_than: 0, less_than: 3, allow_blank: true }
+  validates :game,    presence: true
+  validates :winner,  numericality: { integer: true, greater_than: 0, less_than: 3, allow_blank: true }
 
   validate do |match|
-    if match.stream.matches.where(:_id.not => match.id).
-        where(:workflow_state.ne => "finalized").exists?
+    if match.stream.matches.where(:_id.ne => match.id, :workflow_state.ne => "finalized").exists?
       match.errors.add :base, "Finalize all previous matches first."
     end
   end
@@ -49,14 +48,7 @@ class Match
 
   def finalize
     if winner
-      bets.each do |bet|
-        points = (bet.player == winner) ? bet.points : -bet.points
-
-        if bet.player == winner
-          bet.challenger.inc(points: points)
-          bet.taker.dec(points: points)
-        end
-      end
+      bets.each(&:finalize!)
     else
       bets.destroy
     end

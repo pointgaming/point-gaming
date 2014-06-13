@@ -13,9 +13,10 @@
           .form-group
             = f.label :points, class: "col-sm-2 control-label"
             .col-sm-10
-              = f.text_field :points, class: "form-control"
+              = f.number_field :points, class: "form-control"
           .form-group
             = f.label :odds, class: "col-sm-2 control-label"
+            = f.hidden_field :odds
             .col-sm-10
               .odds-slider.ui-slider-colors-demo
               .pull-left

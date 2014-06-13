@@ -18,13 +18,8 @@ class BetsController < ApplicationController
 
   def update
     bet = initialized_match.bets.find(params[:id])
-    bet.accept!(current_user)
+    bet.accept!(current_user) if bet.can_be_accepted_by?(current_user)
 
-    render json: bet
-  end
-
-  def destroy
-    initialized_match.bets.find(params[:id]).destroy
     render json: bet
   end
 

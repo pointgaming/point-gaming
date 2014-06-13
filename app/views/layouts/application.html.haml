@@ -40,9 +40,9 @@
                     %li.dropdown
                       %a.dropdown-toggle.user-menu{"data-toggle" => "dropdown", :href => "#"}
                         = image_tag current_user.avatar
-                        %span
+                        %span#user{data: { id: current_user.id }}
                           = current_user
-                        %span.badge.badge-primary
+                        %span#user-points.badge.badge-primary
                           = current_user.points
                       %ul.dropdown-menu
                         %li

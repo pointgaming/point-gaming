@@ -4,14 +4,14 @@ PointGaming = (function () {
     "use strict";
 
     var socket,
-        channel = "",
         handlers = {
             open: [],
             close: [],
             message: []
         },
-        module,
+        channels = {},
         state = {},
+        module,
 
         CONNECTING = 0,
         OPEN = 1,
@@ -41,8 +41,21 @@ PointGaming = (function () {
 
         socket = new WebSocket(url);
         socket.onopen = function () {
-            if (channel) {
-                module.subscribe(channel);
+            var klass, channel;
+
+// This needs to be done, unfortunately, because subscribe() will get called
+// before the socket has actually opened.
+
+            for (klass in channels) {
+                if (channels.hasOwnProperty(klass) && channels[klass]) {
+                    channel = klass + "." + channels[klass];
+                    socket.send(
+                        JSON.stringify({
+                            action: "subscribe",
+                            channel: channel
+                        })
+                    );
+                }
             }
 
             callHandlers("open");
@@ -84,39 +97,48 @@ PointGaming = (function () {
             return state.match;
         },
 
-        subscribe: function (chan) {
-            var data = {
-                action: "subscribe",
-                channel: chan
-            };
+        subscribe: function (klass, id) {
+            var channel = klass + "." + id,
+                data = {
+                    action: "subscribe",
+                    channel: channel
+                };
 
-            if (channel) {
-                module.unsubscribe(channel);
+            if (channels[klass] === id) {
+                return;
             }
 
-            channel = chan;
+            if (channels[klass]) {
+                module.unsubscribe(klass);
+            }
+
+            channels[klass] = id;
 
             if (socket.readyState === OPEN) {
                 socket.send(JSON.stringify(data));
             }
         },
 
-        unsubscribe: function () {
-            var data = {
-                action: "unsubscribe",
-                channel: channel
-            };
+        unsubscribe: function (klass) {
+            var channel = channels[klass],
+                data = {
+                    action: "unsubscribe",
+                    channel: channel
+                };
 
-            socket.send(JSON.stringify(data));
-            channel = null;
+            if (socket.readyState === OPEN) {
+                socket.send(JSON.stringify(data));
+            }
+
+            channels[klass] = null;
         },
 
-        send: function (data) {
+        send: function (klass, data) {
             if (!data) {
                 return;
             }
 
-            data.channel = channel;
+            data.channel = klass + "." + channels[klass];
             socket.send(JSON.stringify(data));
         },
 

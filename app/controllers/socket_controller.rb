@@ -39,6 +39,8 @@ class SocketController < ApplicationController
 
     if channel =~ /stream\.([\w\-]+)/
       @channel = channel if Stream.where(slug: $1).exists?
+    elsif channel =~ /user\.([a-f0-9]+)/
+      @channel = channel if User.where(_id: $1).exists?
     end
 
     @channel ? true : false
