@@ -6,11 +6,17 @@ class CollaboratorsController < ApplicationController
   end
 
   def create
-    @stream.collaborators << BSON::ObjectId.from_string(params[:user_id])
-    @stream.collaborators.uniq!
-    @stream.save
+    user = User.find(params[:user_id])
 
-    head :ok
+    if @stream.has_active_bets?(user)
+      render json: { error: "Collaborator cannot have any active bets." }, status: :unprocessable_entity
+    else
+      @stream.collaborators << user.id
+      @stream.collaborators.uniq!
+      @stream.save
+
+      head :ok
+    end
   end
 
   def destroy

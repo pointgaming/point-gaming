@@ -1,4 +1,5 @@
-var PointGaming = PointGaming || {};
+var PointGaming = PointGaming || {},
+    bootbox = bootbox || {};
 
 (function () {
     "use strict";
@@ -45,12 +46,21 @@ var PointGaming = PointGaming || {};
             $.ajax({
                 url: streamUrl() + "/collaborators",
                 method: "POST",
-                data: { user_id: e.val }
+                data: { user_id: e.val },
+
+                success: function () {
+                    PointGaming.reloadStreamTable("collaborators");
+                },
+
+                error: function (data) {
+                    bootbox.alert({
+                        message: data.responseJSON.error,
+                        className: "bootbox-sm"
+                    });
+                }
             });
 
             e.preventDefault();
-            PointGaming.reloadStreamTable("collaborators");
-
             $("#new-collaborator").select2("close");
 
             return false;

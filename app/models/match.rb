@@ -37,8 +37,10 @@ class Match
   validates :winner,  numericality: { integer: true, greater_than: 0, less_than: 3, allow_blank: true }
 
   validate do |match|
-    if match.stream.matches.where(:_id.ne => match.id, :workflow_state.ne => "finalized").exists?
-      match.errors.add :base, "Finalize all previous matches first."
+    unless match.finalized?
+      if match.stream.matches.where(:_id.ne => match.id, :workflow_state.ne => "finalized").exists?
+        match.errors.add :base, "Finalize all previous matches first."
+      end
     end
   end
 

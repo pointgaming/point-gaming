@@ -24,6 +24,17 @@ class Stream
     self.user == user || collaborators.include?(user.id)
   end
 
+  def has_active_bets?(user)
+    return false unless user
+    match = betable_match()
+
+    if match.present? && match.bets.any_of({ challenger: user }, { taker: user }).present?
+      true
+    else
+      false
+    end
+  end
+
   [:initialized, :active, :betable].each do |t|
     define_method "#{t}_match?" do
       send("#{t}_match_query").exists?
