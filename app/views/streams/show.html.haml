@@ -35,6 +35,11 @@
             %a{href: "#match-tab", data: { toggle: "tab" }}
               %i.panel-title-icon.fa.fa-gamepad
               Match
+        - if @stream.user == current_user
+          %li
+            %a{href: "#admin-tab", data: { toggle: "tab" }}
+              %i.panel-title-icon.fa.fa-cogs
+              Admin
 
       .tab-content
         = render partial: "/streams/tabs/bets"
@@ -42,3 +47,5 @@
         - if @stream.collaborator?(current_user)
           = render partial: "/streams/tabs/collaborators"
           = render partial: "/streams/tabs/match"
+        - if @stream.user == current_user
+          = render partial: "/streams/tabs/admin"

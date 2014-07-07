@@ -47,7 +47,7 @@ class SocketController < ApplicationController
   end
 
   def valid_message(data)
-    actions = ["chat","subscribe","unsubscribe","update"]
+    actions = ["chat","subscribe","unsubscribe","update","refresh"]
 
     return false unless data && data.is_a?(Hash)
     return false unless actions.include?(data["action"])

@@ -12,7 +12,7 @@ module Sluggable
 
     validate do |sluggable|
       # If the slug is already taken, present it as though the name is already taken.
-      if sluggable.class.where(slug: sluggable.slug, "$not" => { "_id" => sluggable._id }).exists?
+      if sluggable.class.where(slug: sluggable.slug, :_id.ne => sluggable._id).exists?
         sluggable.errors.add sluggable.class.slug_field.to_sym, "is already taken"
       end
     end

@@ -1,0 +1,36 @@
+.tab-pane#admin-tab
+  .row
+    .col-sm-8
+      = form_for @stream, html: { id: "update-stream-form", class: "form-horizontal" } do |f|
+        .form-group
+          = f.label :avatar, class: "col-sm-2 control-label"
+          .col-sm-10
+            = f.file_field :avatar, class: "form-control"
+            %p.help-block Your avatar will be scaled to 160x160.
+        .form-group
+          = f.label :channel_source, "Channel", class: "col-sm-2 control-label"
+          .col-sm-10
+            .radio
+              %label
+                = f.radio_button :channel_source, "twitch", class: "px"
+                %span{class: "lbl"} Twitch
+            .radio
+              %label
+                = f.radio_button :channel_source, "youtube", class: "px"
+                %span{class: "lbl"} YouTube
+
+            %br
+            = f.text_field :channel_name, placeholder: "Channel Name", class: "form-control"
+        .form-group
+          = f.label :description, class: "col-sm-2 control-label"
+          .col-sm-10
+            = f.text_area :description, rows: 10, class: "form-control markdown-area"
+
+        .pull-right
+          %button.btn.btn-flat.btn-labeled.btn-danger#destroy-stream-button
+            %span.btn-label.icon.fa.fa-times
+            %span Delete Stream
+
+          %button.btn.btn-flat.btn-labeled.btn-success{type: "submit"}
+            %span.btn-label.icon.fa.fa-save
+            %span Save Changes

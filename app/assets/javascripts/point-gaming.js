@@ -44,7 +44,8 @@ PointGaming = (function () {
             var klass, channel;
 
 // This needs to be done, unfortunately, because subscribe() will get called
-// before the socket has actually opened.
+// before the socket has actually opened. This also gets called when the socket
+// reconnects after a random disconnect.
 
             for (klass in channels) {
                 if (channels.hasOwnProperty(klass) && channels[klass]) {
@@ -77,9 +78,12 @@ PointGaming = (function () {
     assembleSocket();
 
     module = {
+        streamId: function () {
+            return $("#stream-wrapper").data("stream-id");
+        },
+
         streamUrl: function () {
-            var streamId = $("#stream-wrapper").data("stream-id");
-            return "/streams/" + streamId;
+            return "/streams/" + PointGaming.streamId();
         },
 
         reloadStreamTable: function (resource) {

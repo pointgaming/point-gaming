@@ -10,8 +10,7 @@ Rails.application.routes.draw do
   end
 
   get "users/search" => "users#search"
-  get "dashboard" => "dashboard#index"
   get "socket" => "socket#index"
 
-  root "dashboard#index"
+  root "streams#index"
 end

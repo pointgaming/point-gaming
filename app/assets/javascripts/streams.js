@@ -6,7 +6,7 @@ var PointGaming = PointGaming || {};
     var streamId;
 
     $(document).on("ready page:load", function () {
-        streamId = $("#stream-wrapper").data("stream-id");
+        streamId = PointGaming.streamId();
 
         if (streamId) {
             PointGaming.subscribe("stream", streamId);
@@ -14,13 +14,20 @@ var PointGaming = PointGaming || {};
             PointGaming.unsubscribe("stream");
         }
 
-        $("#new-stream-form").validate({
+        $("#new-stream-form, #update-stream-form").validate({
             rules: {
                 "stream[name]": {
                     required: true,
                     remote: "/streams/validate_name"
                 }
             }
+        });
+    });
+
+    $(document).on("click", "#destroy-stream-button", function () {
+        $.ajax({
+            url: PointGaming.streamUrl(),
+            type: "DELETE"
         });
     });
 }());
