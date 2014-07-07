@@ -6,7 +6,6 @@ PointGaming = (function () {
     var socket,
         handlers = {
             open: [],
-            close: [],
             message: []
         },
         channels = {},
@@ -27,7 +26,8 @@ PointGaming = (function () {
     }
 
     function assembleSocket() {
-        var url = "ws";
+        var url = "ws",
+            timesClosed = 0;
 
         if (window.location.protocol.match("https")) {
             url += "s";
@@ -39,7 +39,7 @@ PointGaming = (function () {
             socket.close();
         }
 
-        socket = new WebSocket(url);
+        socket = new ReconnectingWebSocket(url);
         socket.onopen = function () {
             var klass, channel;
 
@@ -62,7 +62,11 @@ PointGaming = (function () {
             callHandlers("open");
         };
         socket.onclose = function () {
-            callHandlers("close");
+            if (timesClosed > 0) {
+                PointGaming.reloadStreamTable("bets");
+            }
+
+            timesClosed += 1;
         };
         socket.onmessage = function (e) {
             var data = JSON.parse(e.data);

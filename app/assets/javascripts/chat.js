@@ -18,9 +18,6 @@ var PointGaming = PointGaming || {};
             return false;
         };
 
-    PointGaming.on("close", function () {
-        $("#chat .panel-body").append("<strong>You have disconnected.</strong><p></p>");
-    });
     PointGaming.on("message", "chat", function (data) {
         var panel = $("#chat .panel-body");
 
