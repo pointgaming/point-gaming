@@ -8,6 +8,7 @@ class Stream
 
   belongs_to :user
   embeds_many :matches
+  after_destroy :send_refresh
 
   field :name,            type: String
   field :description,     type: String
@@ -61,5 +62,9 @@ class Stream
 
   def betable_match_query
     matches.where(:workflow_state.in => ["initialized","started","stopped"])
+  end
+
+  def send_refresh
+    Redis.new.publish("stream.#{slug}", JSON({ action: "refresh" }))
   end
 end

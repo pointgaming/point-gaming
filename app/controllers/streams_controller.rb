@@ -13,7 +13,7 @@ class StreamsController < ApplicationController
   end
 
   def create
-    @stream = Stream.new(new_stream_parameters)
+    @stream = current_user.streams.new(new_stream_parameters)
 
     if @stream.save
       redirect_to @stream, notice: "Stream successfully created."

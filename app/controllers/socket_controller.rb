@@ -20,8 +20,10 @@ class SocketController < ApplicationController
         elsif data["action"] == "unsubscribe"
           redis_threads[@channel].try(:kill)
         else
-          data[:username] = current_user.username
-          data[:slug]     = current_user.slug
+          unless data["action"] == "refresh"
+            data[:username] = current_user.username
+            data[:slug]     = current_user.slug
+          end
 
           Redis.new.publish @channel, JSON(data)
         end

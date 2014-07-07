@@ -71,6 +71,11 @@ PointGaming = (function () {
                 state[data["class"]] = data.data;
             }
 
+            if (data.action === "refresh") {
+                window.location.reload(true);
+                return;
+            }
+
             callHandlers("message", data);
         };
     }
