@@ -9,4 +9,9 @@
             iconlibrary: "fa"
         });
     });
+
+    $(document).on("hidden.bs.modal", ".modal", function () {
+        $(this).find("form")[0].reset();
+        $(".odds-slider").slider("value", 0);
+    })
 }());
