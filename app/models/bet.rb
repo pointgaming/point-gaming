@@ -74,9 +74,7 @@ class Bet
   end
 
   def publish_points
-    [taker, challenger].compact.each do |better|
-      Redis.new.publish("user.#{better.id}", JSON({ action: "points", points: better.points }))
-    end
+    [taker, challenger].compact.each(&:publish_points)
   end
 
   def points_required_to_accept

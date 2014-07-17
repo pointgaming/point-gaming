@@ -16,4 +16,8 @@ class User
   def to_s
     username
   end
+
+  def publish_points
+    Redis.new.publish("user.#{id}", JSON({ action: "points", points: points }))
+  end
 end
