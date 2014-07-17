@@ -5,7 +5,7 @@ var PointGaming = PointGaming || {};
 
     var streamId;
 
-    $(document).on("ready page:load", function () {
+    $(document).on("ready", function () {
         streamId = PointGaming.streamId();
 
         if (streamId) {

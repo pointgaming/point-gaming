@@ -27,7 +27,7 @@ var PointGaming = PointGaming || {};
             }
         };
 
-    $(document).on("ready page:load", function () {
+    $(document).on("ready", function () {
         $("#new-match-form").validate({
             rules: {
                 "match[player1]": {

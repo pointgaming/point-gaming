@@ -110,6 +110,14 @@ PointGaming = (function () {
             return state.match;
         },
 
+        getUserPoints: function () {
+            if ($("#user-points").length) {
+                return parseInt($("#user-points").html(), 10);
+            }
+
+            return null;
+        },
+
         subscribe: function (klass, id) {
             var channel = klass + "." + id,
                 data = {

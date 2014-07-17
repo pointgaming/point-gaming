@@ -9,7 +9,7 @@ var PointGaming = PointGaming || {},
             return "/streams/" + streamId;
         };
 
-    $(document).on("ready page:load", function () {
+    $(document).on("ready", function () {
         $("#new-collaborator").select2({
             placeholder: "Search username...",
             minimumInputLength: 3,
