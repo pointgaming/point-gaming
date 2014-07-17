@@ -73,7 +73,7 @@ var PointGaming = PointGaming || {};
 
     $(document).on("keyup", "#bet_points", updateSlider);
 
-    $(document).on("ready page:load", function () {
+    $(document).on("ready", function () {
         $(".odds-slider").slider({
             min: -3,
             value: 0,
@@ -82,6 +82,10 @@ var PointGaming = PointGaming || {};
             slide: updateSlider,
             change: updateSlider
         });
+
+        $.validator.addMethod("points", function (value) {
+            return parseInt(value, 10) < PointGaming.getUserPoints();
+        }, "You cannot bet with more points than you have.");
 
         $("#new-bet-form").validate({
             rules: {
@@ -92,6 +96,7 @@ var PointGaming = PointGaming || {};
                 },
                 "bet[points]": {
                     required: true,
+                    points: true,
                     min: 10
                 }
             }

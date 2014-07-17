@@ -43,6 +43,12 @@ class Bet
     end
   end
 
+  validate do |bet|
+    if bet.points > challenger.points
+      bet.errors.add :base, "Cannot make a bet for more points than you have."
+    end
+  end
+
   def can_be_accepted_by?(user)
     initialized? && user.points >= points_required_to_accept && challenger != user && !stream.collaborator?(user)
   end
