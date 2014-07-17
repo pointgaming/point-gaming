@@ -1,5 +1,5 @@
 #stream-wrapper{data: { stream_id: @stream.slug }}
-  .col-md-6
+  .col-md-6{style: "width:600px"}
     .row
       - if @stream.twitch?
         %object{data: "https://www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf?channel=#{@stream.channel_name}", height: "360", type: "application/x-shockwave-flash", width: "590"}
