@@ -68,11 +68,11 @@ test:
         max_retries: 1
         retry_interval: 0
 production:
-  uri: <%= ENV["MONGOHQ_URL"] %>
+  uri: "mongodb://localhost:27017/point_gaming"
   max_retries_on_connection_failure: 20
   persist_in_safe_mode: true
   skip_version_check: true
 
   sessions:
     default:
-      uri: <%= ENV["MONGOHQ_URL"] %>
+      uri: "mongodb://localhost:27017/point_gaming"
