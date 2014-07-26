@@ -12,5 +12,11 @@ Rails.application.routes.draw do
   get "users/search" => "users#search"
   get "socket" => "socket#index"
 
+
+  get "profile" => "profile#edit"
+  get "profile/settings" => "profile#settings"
+
+  resources :users
+
   root "streams#index"
 end

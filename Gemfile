@@ -2,7 +2,7 @@ ruby "2.1.2"
 source "https://rubygems.org"
 
 # Care.
-gem "rails", "4.1.1"
+gem "rails", "4.1.4"
 gem "mongoid", github: "mongoid/mongoid"
 gem "bson_ext"
 gem "devise"

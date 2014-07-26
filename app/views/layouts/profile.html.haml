@@ -1,0 +1,25 @@
+- content_for :menu do
+  #main-menu{:role => "navigation"}
+    #main-menu-inner
+      #menu-content-demo.menu-content.top
+        %div
+          .text-bg
+            %span.text-semibold= current_user
+          = avatar
+          .btn-group
+            %a.btn.btn-xs.btn-primary.btn-outline.dark{:href => "#"}
+              %i.fa.fa-envelope
+            %a.btn.btn-xs.btn-danger.btn-outline.dark{href: destroy_user_session_path}
+              %i.fa.fa-power-off
+          %a.close{href: root_path} &times;
+      %ul.navigation
+        %li{class: action_name == "edit" ? "active" : ""}
+          %a{href: profile_path}
+            %i.menu-icon.fa.fa-user
+            %span.mm-text Profile
+        %li{class: action_name == "settings" ? "active" : ""}
+          %a{href: profile_settings_path}
+            %i.menu-icon.fa.fa-cog
+            %span.mm-text Settings
+
+= render template: "layouts/application"

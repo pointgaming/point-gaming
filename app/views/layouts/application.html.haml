@@ -15,7 +15,9 @@
     = stylesheet_link_tag :application
     = javascript_include_tag :application
 
-  %body{class: "theme-default no-main-menu #{yield(:body_class)}"}
+  %body{class: body_class}
+    = yield(:menu)
+
     - if devise_controller?
       = yield
     - else
@@ -43,11 +45,11 @@
                           = current_user.points
                       %ul.dropdown-menu
                         %li
-                          %a{:href => "#"}
+                          %a{href: profile_path}
                             %i.dropdown-icon.fa.fa-user
                             \&nbsp;&nbsp;Profile
                         %li
-                          %a{:href => "#"}
+                          %a{:href => profile_settings_path}
                             %i.dropdown-icon.fa.fa-cog
                             \&nbsp;&nbsp;Settings
                         %li.divider
@@ -61,3 +63,5 @@
               .col-sm-12
                 = content_tag :div, msg, class: "alert alert-#{type == "notice" ? "success" : "danger"}"
           = content_for?(:content) ? yield(:content) : yield
+
+        #main-menu-bg
